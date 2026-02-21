@@ -98,6 +98,9 @@ vim.call("plug#begin", "~/.vim/plugged")
  Plug('windwp/nvim-autopairs')
  -- Working with surrounds
  Plug('echasnovski/mini.surround')
+Plug('nvim-lualine/lualine.nvim') --statusline
+Plug('nvim-tree/nvim-web-devicons') --pretty icons
+Plug('folke/which-key.nvim') --mappings popup
 vim.call('plug#end')
 
 vim.cmd('colorscheme catppuccin')
@@ -169,3 +172,11 @@ vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { silent = true, desc = 'Previo
         { name = 'path' }
     })
  })
+
+
+require("which-key").setup({
+	show_help = true,
+	show_keys = true,
+	preset = "helix",
+})
+
