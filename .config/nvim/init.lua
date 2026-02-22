@@ -88,7 +88,6 @@ vim.call("plug#begin", "~/.vim/plugged")
  Plug('hrsh7th/nvim-cmp')
  
  -- Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" })
- -- require("lazy").setup({{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}})
  Plug('nvim-treesitter/nvim-treesitter')
  Plug('ray-x/go.nvim')
  
@@ -101,6 +100,8 @@ vim.call("plug#begin", "~/.vim/plugged")
 Plug('nvim-lualine/lualine.nvim') --statusline
 Plug('nvim-tree/nvim-web-devicons') --pretty icons
 Plug('folke/which-key.nvim') --mappings popup
+Plug('lukas-reineke/indent-blankline.nvim') -- Adds virtual lines to understand the scope
+
 vim.call('plug#end')
 
 vim.cmd('colorscheme catppuccin')
@@ -115,7 +116,7 @@ vim.cmd('colorscheme catppuccin')
 
 -- Options for silent and non-recursive mappings
  local opts = { noremap = true, silent = true }
- 
+
  -- Example mappings for fzf.vim
  vim.keymap.set('n', '<leader>p', ':Files<CR>', opts)
  vim.keymap.set('n', '<leader>b', ':Buffers<CR>', opts)
@@ -141,7 +142,6 @@ local builtin = require('telescope.builtin')
  vim.keymap.set('n', '<leader>k', '<C-w>k', opts) -- Move to the top pane
  vim.keymap.set('n', '<leader>l', '<C-w>l', opts) -- Move to the right pane
  
- 
  -- Add LSP stuff here
  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Show hover' })
  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
@@ -157,8 +157,7 @@ vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true, desc = 'Next Buffer'
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { silent = true, desc = 'Previous Buffer' })
 
 
- local cmp = require'cmp'
-
+local cmp = require'cmp'
  cmp.setup({
     mapping = {
         ['<C-Space>'] = cmp.mapping.complete(),
@@ -173,6 +172,9 @@ vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { silent = true, desc = 'Previo
     })
  })
 
+vim.keymap.set("n", "<leader>?", function()
+  require("which-key").show({ global = true })
+end, { desc = "WhichKey: show all keymaps" })
 
 require("which-key").setup({
 	show_help = true,
@@ -180,3 +182,9 @@ require("which-key").setup({
 	preset = "helix",
 })
 
+require("ibl").setup({
+  scope = {
+    enabled = true,
+    show_start = true,
+  }
+})
